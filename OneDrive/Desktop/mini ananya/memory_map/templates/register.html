@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Sign up - Memory Map{% endblock %}
+{% block page %}landing{% endblock %}
+{% block content %}
+<main class="landing">
+  <div class="hearts" aria-hidden="true"></div>
+  <section class="pitch">
+    <p class="logo">&#128150; Memory Map</p>
+    <h1>Every place has a story. Keep yours.</h1>
+    <p class="lead">Memory Map is a private scrapbook drawn on a real map. Pin a moment to the exact place it happened, add photos, notes, moods and tags, then wander back through your life by place, by date or as a journey.</p>
+    <div class="carousel" data-features></div>
+    <div class="steps">
+      <div class="step"><b>1. Pin</b>Click the map or use your location.</div>
+      <div class="step"><b>2. Remember</b>Add photos, a mood and a few words.</div>
+      <div class="step"><b>3. Revisit</b>Explore the map, timeline and On this day.</div>
+    </div>
+  </section>
+  <section class="auth">
+    <h2>Start your memory map</h2>
+    <p class="hint">Your memories stay private to you.</p>
+    <form method="post">
+      <label>Name <input name="name" required autofocus></label>
+      <label>Email <input type="email" name="email" required></label>
+      <label>Password (6+ characters) <input type="password" name="password" minlength="6" required></label>
+      <button class="primary wide">Create account</button>
+    </form>
+    <p class="alt">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+  </section>
+</main>
+{% endblock %}

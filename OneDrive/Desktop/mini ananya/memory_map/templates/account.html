@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block page %}account{% endblock %}
+{% block content %}
+<main class="page narrow">
+  <h1>Account</h1>
+  <section class="box">
+    <h2>Change password</h2>
+    <form method="post">
+      <label>Current password <input type="password" name="old_password" required></label>
+      <label>New password (6+ characters) <input type="password" name="new_password" minlength="6" required></label>
+      <button class="primary">Change password</button>
+    </form>
+  </section>
+  <section class="box">
+    <h2>Keep a copy</h2>
+    <p class="hint">Download all your memories and journeys as a JSON file.</p>
+    <a class="btn" href="{{ url_for('export_data') }}">Download my data</a>
+  </section>
+</main>
+{% endblock %}

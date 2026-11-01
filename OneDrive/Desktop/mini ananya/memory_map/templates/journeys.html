@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block page %}journeys{% endblock %}
+{% block content %}
+<div class="layout">
+  <aside class="side">
+    <section class="box">
+      <h2>&#129523; New journey</h2>
+      <p class="hint">Tick memories in the order you visited them. At least two.</p>
+      <form id="jForm">
+        <label>Name <input name="name" required placeholder="Summer in the hills"></label>
+        <label>Description <input name="description"></label>
+        <div id="memPick" class="pick"></div>
+        <button class="primary">Save journey</button>
+        <p id="jMsg" class="msg"></p>
+      </form>
+    </section>
+    <section class="box">
+      <h2>Your journeys</h2>
+      <p class="hint">Tap a journey to see it. Press play to watch the trip.</p>
+      <div id="jList"></div>
+    </section>
+  </aside>
+  <div class="mapwrap"><div id="map"></div></div>
+</div>
+{% endblock %}

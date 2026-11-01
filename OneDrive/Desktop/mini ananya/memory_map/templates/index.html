@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block page %}map{% endblock %}
+{% block content %}
+<section class="hero" id="hero">
+  <div class="hearts" aria-hidden="true"></div>
+  <div class="hero-bar">
+    <div><h1 id="greet">Welcome</h1><p class="sub">Your life, pinned to the places it happened.</p></div>
+    <button id="heroToggle" type="button">Hide banner</button>
+  </div>
+  <div class="hero-body">
+    <div class="hero-main">
+      <p class="lead">Memory Map is your private scrapbook on a real map. Click anywhere to pin a memory, attach photos, a mood and tags, then explore it on the map, the timeline, as a journey, on a heatmap or as a slideshow.</p>
+      <div class="counters">
+        <div class="counter"><b id="cMem">0</b><span>memories</span></div>
+        <div class="counter"><b id="cLoc">0</b><span>places</span></div>
+        <div class="counter"><b id="cPho">0</b><span>photos</span></div>
+        <div class="counter"><b id="cStr">0</b><span>day streak</span></div>
+      </div>
+      <div class="hero-actions">
+        <button class="primary" id="focusAdd" type="button">Add a memory</button>
+        <button class="primary" id="playAll" type="button">▶ Play slideshow</button>
+        <button id="surprise" type="button">Surprise me</button>
+        <a class="btn" href="{{ url_for('export_data') }}">Download my data</a>
+      </div>
+    </div>
+    <div class="carousel" data-features></div>
+    <div class="mod" id="mod"></div>
+  </div>
+</section>
+<div class="layout">
+  <aside class="side">
+    <section id="onThisDay" class="box" hidden>
+      <h2>&#127873; On this day</h2>
+      <div id="otdList"></div>
+    </section>
+
+    <section class="box">
+      <h2 id="formTitle">Add a memory</h2>
+      <p class="hint" id="pickHint">Click the map to choose where it happened.</p>
+      <form id="memForm">
+        <button type="button" id="useLoc"><img class="ico" src="{{ url_for('static', filename='girl.svg') }}" alt=""> Use my location</button>
+        <label>Title <input name="title" required></label>
+        <label>Date <input type="date" name="date" required></label>
+        <label>Place name <input name="place" placeholder="Filled in from the map, or type your own"></label>
+        <div class="row">
+          <label>Mood <select name="mood" data-opts="mood" data-blank="Pick one"></select></label>
+          <label>Category <select name="category" data-opts="category" data-blank="Pick one"></select></label>
+        </div>
+        <label>Tags (comma separated) <input name="tags" placeholder="trip, rain, friends"></label>
+        <label>Description <textarea name="description" rows="3" placeholder="What made this moment special?"></textarea></label>
+        <label>Photos <input type="file" name="photos" accept="image/*" multiple></label>
+        <div id="oldPhotos" class="thumbs"></div>
+        <div id="newPhotos" class="thumbs"></div>
+        <input type="hidden" name="latitude">
+        <input type="hidden" name="longitude">
+        <div class="row">
+          <button class="primary" id="saveBtn">Save memory</button>
+          <button type="button" id="cancelEdit" hidden>Cancel</button>
+        </div>
+        <p id="formMsg" class="msg"></p>
+      </form>
+    </section>
+
+    <section class="box">
+      <h2>&#128269; Find memories</h2>
+      <form id="filterForm">
+        <label>Search <input name="q" placeholder="title or description"></label>
+        <div class="row">
+          <label>Year <input name="year" type="number" min="1900" max="2100"></label>
+          <label>Date <input name="date" type="date"></label>
+        </div>
+        <div class="row">
+          <label>Category <select name="category" data-opts="category" data-blank="All"></select></label>
+          <label>Mood <select name="mood" data-opts="mood" data-blank="All"></select></label>
+        </div>
+        <div class="row">
+          <label>Place <input name="place"></label>
+          <label>Tag <input name="tag"></label>
+        </div>
+        <label class="check"><input type="checkbox" name="favorite" value="1"> Favourites only</label>
+        <label class="check"><input type="checkbox" id="heatToggle"> Show heatmap</label>
+        <div class="row">
+          <button class="primary">Apply</button>
+          <button type="button" id="clearFilters">Clear</button>
+        </div>
+        <button type="button" id="playFiltered" class="wide">▶ Play these as a slideshow</button>
+        <p id="count" class="hint"></p>
+      </form>
+    </section>
+  </aside>
+  <div class="mapwrap">
+    <form id="geoForm" class="mapsearch">
+      <input id="geoQ" placeholder="Search a city or place..." aria-label="Search a place">
+      <button class="primary">Go</button>
+    </form>
+    <div id="map"></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Memory Map{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% if session.user_id %}<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">{% endif %}
+</head>
+<body data-page="{% block page %}{% endblock %}" data-user="{{ session.user_name or '' }}">
+  {% if session.user_id %}
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">&#128150; Memory Map</a>
+    <nav>
+      <a href="{{ url_for('index') }}">Map</a>
+      <a href="{{ url_for('timeline') }}">Timeline</a>
+      <a href="{{ url_for('journeys_page') }}">Journeys</a>
+      <a href="{{ url_for('stats_page') }}">Statistics</a>
+    </nav>
+    <span class="who"><a href="{{ url_for('account') }}">{{ session.user_name }}</a> &middot; <a href="{{ url_for('logout') }}">Log out</a></span>
+  </header>
+  {% endif %}
+  {% with messages = get_flashed_messages() %}
+    {% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+  <div id="toast" role="status"></div>
+  <div id="lightbox" hidden><img alt="Photo preview"></div>
+  {% if session.user_id %}
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  {% endif %}
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

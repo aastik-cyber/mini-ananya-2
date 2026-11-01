@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block page %}timeline{% endblock %}
+{% block content %}
+<main class="page">
+  <h1>Timeline</h1>
+  <form class="toolbar" onsubmit="return false">
+    <input id="tq" placeholder="Search your memories" aria-label="Search">
+    <select id="tcat" data-opts="category" data-blank="All categories" aria-label="Category"></select>
+    <select id="tsort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option></select>
+    <label class="check"><input type="checkbox" id="tfav"> Favourites</label>
+    <button type="button" id="tplay" class="primary">▶ Slideshow</button>
+  </form>
+  <div id="timeline"></div>
+</main>
+{% endblock %}
